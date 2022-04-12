@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		6316098D27FDBF3400C07ECF /* QueueCreation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6316098C27FDBF3400C07ECF /* QueueCreation.swift */; };
+		63891D962817403500DC4D2D /* ParticipantsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63891D952817403500DC4D2D /* ParticipantsCell.swift */; };
+		638B22C42816B94100C111B5 /* QueueDetailsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638B22C32816B94100C111B5 /* QueueDetailsController.swift */; };
+		639695C02816812F00C7AAE5 /* ModelsJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639695BF2816812F00C7AAE5 /* ModelsJSON.swift */; };
+		639695C22816824C00C7AAE5 /* NetowrkRequestsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639695C12816824C00C7AAE5 /* NetowrkRequestsController.swift */; };
 		63F57C6427FD8320001B97B2 /* QueueCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F57C6327FD8320001B97B2 /* QueueCell.swift */; };
 		63F57C6627FD83E9001B97B2 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F57C6527FD83E9001B97B2 /* Queue.swift */; };
 		63F57C6A27FD8751001B97B2 /* QueueTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F57C6927FD8751001B97B2 /* QueueTableViewController.swift */; };
@@ -21,6 +25,10 @@
 
 /* Begin PBXFileReference section */
 		6316098C27FDBF3400C07ECF /* QueueCreation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueCreation.swift; sourceTree = "<group>"; };
+		63891D952817403500DC4D2D /* ParticipantsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantsCell.swift; sourceTree = "<group>"; };
+		638B22C32816B94100C111B5 /* QueueDetailsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueDetailsController.swift; sourceTree = "<group>"; };
+		639695BF2816812F00C7AAE5 /* ModelsJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelsJSON.swift; sourceTree = "<group>"; };
+		639695C12816824C00C7AAE5 /* NetowrkRequestsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetowrkRequestsController.swift; sourceTree = "<group>"; };
 		63F57C6327FD8320001B97B2 /* QueueCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueCell.swift; sourceTree = "<group>"; };
 		63F57C6527FD83E9001B97B2 /* Queue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
 		63F57C6927FD8751001B97B2 /* QueueTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueTableViewController.swift; sourceTree = "<group>"; };
@@ -49,7 +57,9 @@
 			isa = PBXGroup;
 			children = (
 				63F57C6527FD83E9001B97B2 /* Queue.swift */,
+				639695BF2816812F00C7AAE5 /* ModelsJSON.swift */,
 				63F57C6327FD8320001B97B2 /* QueueCell.swift */,
+				63891D952817403500DC4D2D /* ParticipantsCell.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -59,6 +69,8 @@
 			children = (
 				63F57C6927FD8751001B97B2 /* QueueTableViewController.swift */,
 				6316098C27FDBF3400C07ECF /* QueueCreation.swift */,
+				639695C12816824C00C7AAE5 /* NetowrkRequestsController.swift */,
+				638B22C32816B94100C111B5 /* QueueDetailsController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -167,9 +179,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				63F57C6627FD83E9001B97B2 /* Queue.swift in Sources */,
+				639695C02816812F00C7AAE5 /* ModelsJSON.swift in Sources */,
 				63F57C6A27FD8751001B97B2 /* QueueTableViewController.swift in Sources */,
 				63F6501F27FCD6AF00D1D974 /* ViewController.swift in Sources */,
+				638B22C42816B94100C111B5 /* QueueDetailsController.swift in Sources */,
 				63F6501B27FCD6AF00D1D974 /* AppDelegate.swift in Sources */,
+				639695C22816824C00C7AAE5 /* NetowrkRequestsController.swift in Sources */,
+				63891D962817403500DC4D2D /* ParticipantsCell.swift in Sources */,
 				63F6501D27FCD6AF00D1D974 /* SceneDelegate.swift in Sources */,
 				63F57C6427FD8320001B97B2 /* QueueCell.swift in Sources */,
 				6316098D27FDBF3400C07ECF /* QueueCreation.swift in Sources */,

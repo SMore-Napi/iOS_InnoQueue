@@ -5,7 +5,7 @@
 //  Created by Роман Солдатов on 06.04.2022.
 //
 
-import Foundation
+import UIKit
 
 struct Queue: Equatable, Codable {
     let id: Int
@@ -30,6 +30,7 @@ struct Queue: Equatable, Codable {
     }
     
     static func loadQueues() -> [Queue]?  {
+        
         guard let codedQueues = try? Data(contentsOf: archiveURL) else
            {return nil}
         let propertyListDecoder = PropertyListDecoder()
@@ -49,5 +50,18 @@ struct Queue: Equatable, Codable {
         let propertyListEncoder = PropertyListEncoder()
         let codedQueues = try? propertyListEncoder.encode(queues)
         try? codedQueues?.write(to: archiveURL, options: .noFileProtection)
+    }
+    
+    static func convertStringToColor(colorName: String) -> UIColor {
+        switch colorName {
+        case "RED": return .red
+        case "ORANGE": return .orange
+        case "YELLOW": return .yellow
+        case "GREEN": return .green
+        case "BLUE": return .blue
+        case "PURPLE": return .purple
+        case "GRAY": return .gray
+        default: return .gray
+        }
     }
 }

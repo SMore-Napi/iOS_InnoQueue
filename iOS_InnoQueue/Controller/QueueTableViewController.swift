@@ -7,6 +7,8 @@
 
 import UIKit
 
+var selectedFromTableQueueId: Int = 0
+
 class QueueTableViewController: UITableViewController, QueueCellDelegate {
     func openQueueDetails(sender: QueueCell) {
 //        if let indexPath = tableView.indexPath(for: sender) {
@@ -23,12 +25,24 @@ class QueueTableViewController: UITableViewController, QueueCellDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
     
-        if let savedQueues = Queue.loadQueues() {
+        if let savedQueues = QueueShortRequest.loadQueues() {
             queues = savedQueues
         } else {
             queues = Queue.loadSampleQueues()
         }
-        //navigationItem.leftBarButtonItem = editButtonItem
+        self.tableView.reloadData()
+
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if let savedQueues = QueueShortRequest.loadQueues() {
+            queues = savedQueues
+        } else {
+            queues = Queue.loadSampleQueues()
+        }
+        self.tableView.reloadData()
     }
 
     
@@ -46,14 +60,18 @@ class QueueTableViewController: UITableViewController, QueueCellDelegate {
         
         let queue = queues[indexPath.row]
         cell.queueName?.text = queue.name
-        cell.queueColor?.backgroundColor = convertStringToColor(colorName: queue.color)
+        cell.queueColor?.backgroundColor = Queue.convertStringToColor(colorName: queue.color)
     
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedFromTableQueueId = queues[indexPath.row].id
+    }
+    
     override func tableView(_ tableView: UITableView, canEditRowAt
        indexPath: IndexPath) -> Bool {
-        return true
+        return false
     }
     
     override func tableView(_ tableView: UITableView,
@@ -75,18 +93,5 @@ class QueueTableViewController: UITableViewController, QueueCellDelegate {
             tableView.insertRows(at: [newIndexPath], with: .automatic)
         }
         Queue.saveQueues(queues)
-    }
-    
-    private func convertStringToColor(colorName: String) -> UIColor {
-        switch colorName {
-        case "RED": return .red
-        case "ORANGE": return .orange
-        case "YELLOW": return .yellow
-        case "GREEN": return .green
-        case "BLUE": return .blue
-        case "PURPLE": return .purple
-        case "GRAY": return .gray
-        default: return .gray
-        }
     }
 }

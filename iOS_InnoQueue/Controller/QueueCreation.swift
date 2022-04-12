@@ -8,6 +8,9 @@
 import UIKit
 
 class QueueCreation: UITableViewController {
+    
+    var queue: Queue?
+    var color: String = "GRAY"
   
     @IBOutlet weak var queueName: UITextField!
     
@@ -87,12 +90,12 @@ class QueueCreation: UITableViewController {
         buttonColor.layer.cornerRadius = buttonColor.frame.height * 0.5
     }
     
-    var queue: Queue?
-    var color: String = "GRAY"
     
     @IBAction func createQueue(_ sender: UIButton) {
         let name = queueName.text!
-        queue = Queue(id: 10, name: name, color: color)
+        let track = trackExpenses.isOn
+        let newQueue = QueueCreateJSON(name: name, color: color, track_expenses: track)
+        QueueShortRequest.createQueue(queue: newQueue)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
