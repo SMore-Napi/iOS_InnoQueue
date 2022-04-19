@@ -11,13 +11,7 @@ var selectedFromTableQueueId: Int = 0
 
 class QueueTableViewController: UITableViewController, QueueCellDelegate {
     func openQueueDetails(sender: QueueCell) {
-//        if let indexPath = tableView.indexPath(for: sender) {
-//            var toDo = toDos[indexPath.row]
-//            toDo.isComplete.toggle()
-//            toDos[indexPath.row] = toDo
-//            tableView.reloadRows(at: [indexPath], with: .automatic)
-//            ToDo.saveToDos(toDos)
-//        }
+        
     }
     
     var queues = [Queue]()
@@ -31,7 +25,6 @@ class QueueTableViewController: UITableViewController, QueueCellDelegate {
             queues = Queue.loadSampleQueues()
         }
         self.tableView.reloadData()
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -84,6 +77,32 @@ class QueueTableViewController: UITableViewController, QueueCellDelegate {
         }
     }
     
+    @IBAction func joinButtonAction(_ sender: UIBarButtonItem) {
+        let alert = UIAlertController(title: "Input queue's pin code", message: nil, preferredStyle: .alert)
+        alert.addTextField { (textField) in
+            textField.placeholder = "Pin code"
+            textField.keyboardType = .numberPad
+        }
+        alert.addAction(UIAlertAction(title: "Cancel", style: .default))
+        alert.addAction(UIAlertAction(title: "Join", style: .default, handler: { [weak alert] (_) in
+            let textField = alert?.textFields![0]
+//            self.sendCompleteTaskRequest(task_id: toDotask.queue_id, expenses: Int((textField?.text)!), index: indexPath.row)
+            let queueId = QueueShortRequest.joinQueue(pinCode: (textField?.text)!)
+            print(queueId)
+            if (queueId != nil) {
+                print("hhhh1")
+                self.tableView.reloadData()
+                selectedFromTableQueueId = queueId!
+                self.performSegue(withIdentifier: "showQueueDetails", sender: self)
+            } else {
+                print("hhhh2")
+                self.showToast(message: "Invalid pin code", font: .systemFont(ofSize: 18.0))
+            }
+
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     @IBAction func unwindQueuesList(segue: UIStoryboardSegue) {
         guard segue.identifier == "unwindQueuesList" else { return }
         let sourceViewController = segue.source as! QueueCreation
@@ -93,5 +112,25 @@ class QueueTableViewController: UITableViewController, QueueCellDelegate {
             tableView.insertRows(at: [newIndexPath], with: .automatic)
         }
         Queue.saveQueues(queues)
+    }
+}
+
+extension QueueTableViewController {
+func showToast(message : String, font: UIFont) {
+    let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width/2 - 75, y: self.view.frame.size.height/2 - 75, width: 150, height: 150))
+    toastLabel.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+    toastLabel.textColor = UIColor.white
+    toastLabel.font = font
+    toastLabel.textAlignment = .center;
+    toastLabel.text = message
+    toastLabel.alpha = 1.0
+    toastLabel.layer.cornerRadius = 10;
+    toastLabel.clipsToBounds  =  true
+    self.view.addSubview(toastLabel)
+    UIView.animate(withDuration: 2.0, delay: 0.3, options: .curveEaseOut, animations: {
+         toastLabel.alpha = 0.0
+    }, completion: {(isCompleted) in
+        toastLabel.removeFromSuperview()
+    })
     }
 }

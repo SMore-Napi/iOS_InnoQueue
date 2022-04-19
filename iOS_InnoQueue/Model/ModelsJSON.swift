@@ -42,3 +42,24 @@ struct QueueFullJSON: Codable {
     let is_active: Bool
     let is_admin: Bool
 }
+
+struct CompleteTaskJSON: Codable {
+    let task_id: Int
+    let expenses: Int?
+}
+
+struct ToDoTaskJSON: Codable {
+    let queue_id: Int
+    let name: String
+    let color: String
+    let is_important: Bool
+    let track_expenses: Bool
+}
+
+struct SkipTaskJSON: Codable {
+    let task_id: Int
+}
+
+struct InivteCodeJSON: Codable {
+    let pin_code: String
+}

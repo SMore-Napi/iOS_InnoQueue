@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		6316098D27FDBF3400C07ECF /* QueueCreation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6316098C27FDBF3400C07ECF /* QueueCreation.swift */; };
 		63891D962817403500DC4D2D /* ParticipantsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63891D952817403500DC4D2D /* ParticipantsCell.swift */; };
+		638ACDB42818024400C88CDF /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638ACDB32818024400C88CDF /* TaskCell.swift */; };
+		638ACDB62818031500C88CDF /* ToDoTasksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638ACDB52818031500C88CDF /* ToDoTasksTableViewController.swift */; };
+		638ACDB82818038000C88CDF /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638ACDB72818038000C88CDF /* Task.swift */; };
 		638B22C42816B94100C111B5 /* QueueDetailsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638B22C32816B94100C111B5 /* QueueDetailsController.swift */; };
 		639695C02816812F00C7AAE5 /* ModelsJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639695BF2816812F00C7AAE5 /* ModelsJSON.swift */; };
 		639695C22816824C00C7AAE5 /* NetowrkRequestsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639695C12816824C00C7AAE5 /* NetowrkRequestsController.swift */; };
@@ -26,6 +29,9 @@
 /* Begin PBXFileReference section */
 		6316098C27FDBF3400C07ECF /* QueueCreation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueCreation.swift; sourceTree = "<group>"; };
 		63891D952817403500DC4D2D /* ParticipantsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantsCell.swift; sourceTree = "<group>"; };
+		638ACDB32818024400C88CDF /* TaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
+		638ACDB52818031500C88CDF /* ToDoTasksTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoTasksTableViewController.swift; sourceTree = "<group>"; };
+		638ACDB72818038000C88CDF /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		638B22C32816B94100C111B5 /* QueueDetailsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueDetailsController.swift; sourceTree = "<group>"; };
 		639695BF2816812F00C7AAE5 /* ModelsJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelsJSON.swift; sourceTree = "<group>"; };
 		639695C12816824C00C7AAE5 /* NetowrkRequestsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetowrkRequestsController.swift; sourceTree = "<group>"; };
@@ -53,13 +59,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		638ACDB22818021900C88CDF /* View */ = {
+			isa = PBXGroup;
+			children = (
+				63891D952817403500DC4D2D /* ParticipantsCell.swift */,
+				63F57C6327FD8320001B97B2 /* QueueCell.swift */,
+				638ACDB32818024400C88CDF /* TaskCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		63F57C6727FD86A0001B97B2 /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				63F57C6527FD83E9001B97B2 /* Queue.swift */,
 				639695BF2816812F00C7AAE5 /* ModelsJSON.swift */,
-				63F57C6327FD8320001B97B2 /* QueueCell.swift */,
-				63891D952817403500DC4D2D /* ParticipantsCell.swift */,
+				638ACDB72818038000C88CDF /* Task.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -71,6 +86,7 @@
 				6316098C27FDBF3400C07ECF /* QueueCreation.swift */,
 				639695C12816824C00C7AAE5 /* NetowrkRequestsController.swift */,
 				638B22C32816B94100C111B5 /* QueueDetailsController.swift */,
+				638ACDB52818031500C88CDF /* ToDoTasksTableViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -94,6 +110,7 @@
 		63F6501927FCD6AF00D1D974 /* iOS_InnoQueue */ = {
 			isa = PBXGroup;
 			children = (
+				638ACDB22818021900C88CDF /* View */,
 				63F57C6827FD86C2001B97B2 /* Controller */,
 				63F57C6727FD86A0001B97B2 /* Model */,
 				63F6501A27FCD6AF00D1D974 /* AppDelegate.swift */,
@@ -180,14 +197,17 @@
 			files = (
 				63F57C6627FD83E9001B97B2 /* Queue.swift in Sources */,
 				639695C02816812F00C7AAE5 /* ModelsJSON.swift in Sources */,
+				638ACDB62818031500C88CDF /* ToDoTasksTableViewController.swift in Sources */,
 				63F57C6A27FD8751001B97B2 /* QueueTableViewController.swift in Sources */,
 				63F6501F27FCD6AF00D1D974 /* ViewController.swift in Sources */,
+				638ACDB42818024400C88CDF /* TaskCell.swift in Sources */,
 				638B22C42816B94100C111B5 /* QueueDetailsController.swift in Sources */,
 				63F6501B27FCD6AF00D1D974 /* AppDelegate.swift in Sources */,
 				639695C22816824C00C7AAE5 /* NetowrkRequestsController.swift in Sources */,
 				63891D962817403500DC4D2D /* ParticipantsCell.swift in Sources */,
 				63F6501D27FCD6AF00D1D974 /* SceneDelegate.swift in Sources */,
 				63F57C6427FD8320001B97B2 /* QueueCell.swift in Sources */,
+				638ACDB82818038000C88CDF /* Task.swift in Sources */,
 				6316098D27FDBF3400C07ECF /* QueueCreation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
