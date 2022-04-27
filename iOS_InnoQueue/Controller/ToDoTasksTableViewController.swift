@@ -92,7 +92,7 @@ class ToDoTasksTableViewController: UITableViewController, TaskCellDelegate {
                     textField.placeholder = "Price"
                     textField.keyboardType = .numberPad
                 }
-                alert.addAction(UIAlertAction(title: "Cancel", style: .default))
+                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
                 alert.addAction(UIAlertAction(title: "Add", style: .default, handler: { [weak alert] (_) in
                     let textField = alert?.textFields![0]
                     self.sendCompleteTaskRequest(task_id: toDotask.queue_id, expenses: Int((textField?.text)!), index: indexPath.row)

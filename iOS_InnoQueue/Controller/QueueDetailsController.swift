@@ -21,6 +21,10 @@ class QueueDetailsController: UIViewController {
     
     @IBOutlet weak var shakeButtonOutlet: UIButton!
     
+    @IBOutlet weak var editButtonOutlet: UIBarButtonItem!
+    
+    @IBOutlet weak var addProgressOutlet: UIButton!
+    
     var queue: QueueFullJSON?
 
     override func viewDidLoad() {
@@ -41,7 +45,22 @@ class QueueDetailsController: UIViewController {
             } else {
                 shakeButtonOutlet.isEnabled = true
             }
+            if (queue.is_admin) {
+                editButtonOutlet.isEnabled = true
+            } else {
+                editButtonOutlet.isEnabled = false
+            }
+            if (queue.is_active) {
+                addProgressOutlet.isEnabled = true
+            } else {
+                addProgressOutlet.isEnabled = false
+            }
         }
+    }
+    
+    
+    @IBAction func editButtonAction(_ sender: UIBarButtonItem) {
+        self.showToast(message: "Not implemented :(", font: .systemFont(ofSize: 15.0))
     }
     
     @IBAction func shakeButtonAction(_ sender: UIButton) {
@@ -56,7 +75,7 @@ class QueueDetailsController: UIViewController {
                 textField.placeholder = "Price"
                 textField.keyboardType = .numberPad
             }
-            alert.addAction(UIAlertAction(title: "Cancel", style: .default))
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
             alert.addAction(UIAlertAction(title: "Add", style: .default, handler: { [weak alert] (_) in
                 let textField = alert?.textFields![0]
                 self.sendCompleteTaskRequest(task_id: (self.queue?.id)!, expenses: Int((textField?.text)!))
@@ -67,9 +86,110 @@ class QueueDetailsController: UIViewController {
         }
     }
     
-    private func sendCompleteTaskRequest(task_id: Int, expenses: Int?){
+    @IBAction func ManageQueueAction(_ sender: UIButton) {
+        
+        let deleteString = (queue?.is_admin)! ? "Delete" : "Leave"
+        let freezeString = (queue?.is_active)! ? "Freeze" : "Unfreeze"
+        
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+            
+            alert.addAction(UIAlertAction(title: "Invite user", style: .default , handler:{ (UIAlertAction)in
+                self.inviteUser(sender)
+            }))
+            
+            alert.addAction(UIAlertAction(title: "\(freezeString) queue", style: .default , handler:{ (UIAlertAction)in
+                self.freezeUnfreezeQueue()
+            }))
+
+            alert.addAction(UIAlertAction(title: "\(deleteString) queue", style: .destructive , handler:{ (UIAlertAction)in
+                self.deleteQueue()
+            }))
+            
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler:{ (UIAlertAction)in
+                
+            }))
+
+            self.present(alert, animated: true, completion: {
+                
+            })
+    }
+    
+    private func sendCompleteTaskRequest(task_id: Int, expenses: Int?) {
         ToDoTasksRequest.completeTask(task_id: task_id, expenses: expenses)
         self.showToast(message: "Added", font: .systemFont(ofSize: 18.0))
+    }
+    
+    private func generateQRCode(from string: String) -> UIImage? {
+        let data = string.data(using: String.Encoding.ascii)
+
+        if let filter = CIFilter(name: "CIQRCodeGenerator") {
+            filter.setValue(data, forKey: "inputMessage")
+            let transform = CGAffineTransform(scaleX: 3, y: 3)
+
+            if let output = filter.outputImage?.transformed(by: transform) {
+                return UIImage(ciImage: output)
+            }
+        }
+
+        return nil
+    }
+    
+    private func inviteUser(_ sender: UIButton) {
+        let inviteCodes = QueueShortRequest.inviteInQueueById(id: (queue?.id)!)
+        if let pinCode = inviteCodes.0,
+           let qrCode = inviteCodes.1 {
+            let alert = UIAlertController(title: "\((queue?.name)!)", message: "Pin code: \(pinCode)", preferredStyle: .alert)
+            
+            let imgViewTitle = UIImageView(frame: CGRect(x: 0, y: -268, width: 268, height: 268))            
+            imgViewTitle.image = self.generateQRCode(from: qrCode)
+            imgViewTitle.layer.cornerRadius = 8.0
+            imgViewTitle.clipsToBounds = true
+            alert.view.addSubview(imgViewTitle)
+            
+            alert.addAction(UIAlertAction(title: "Share", style: .default, handler: { (_) in
+                let description = "Join '\((self.queue?.name)!)' in InnoQueue. Pin code: \(pinCode)"
+                let activityController = UIActivityViewController(activityItems: [description], applicationActivities: nil)
+                activityController.popoverPresentationController?.sourceView = sender
+                self.present(activityController, animated: true, completion: nil)
+            }))
+            alert.addAction(UIAlertAction(title: "Done", style: .default))
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    
+    private func freezeUnfreezeQueue() {
+        let freezeString = (queue?.is_active)! ? "Freeze" : "Unfreeze"
+        let freezeDescriptionString = (queue?.is_active)!
+            ? "Temporarily leave this queue. Other users will still participate. Your progress will be saved."
+            : "Return back to this queue. You'll continue receiving tasks for this queue."
+        
+        let alert = UIAlertController(title: "\(freezeString) queue", message: "\(freezeDescriptionString)", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        alert.addAction(UIAlertAction(title: "\(freezeString)", style: .destructive, handler: { (_) in
+            if ((self.queue?.is_active)!) {
+                QueueShortRequest.freezeQueue(queue_id: (self.queue?.id)!)
+                _ = self.navigationController?.popViewController(animated: true)
+            } else {
+                QueueShortRequest.unfreezeQueue(queue_id: (self.queue?.id)!)
+                _ = self.navigationController?.popViewController(animated: true)
+            }
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    private func deleteQueue() {
+        let deleteString = (queue?.is_admin)! ? "Delete" : "Leave"
+        let deleteDescriptionString = (queue?.is_admin)!
+            ? "All participants will be removed from this queue. The progress will be lost."
+            : "Leave this queue. You will no longer participate in this queue. Your progress will be lost."
+        
+        let alert = UIAlertController(title: "\(deleteString) queue", message: "\(deleteDescriptionString)", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        alert.addAction(UIAlertAction(title: "\(deleteString)", style: .destructive, handler: { (_) in
+            QueueShortRequest.deleteQueue(queue_id: (self.queue?.id)!)
+            _ = self.navigationController?.popViewController(animated: true)
+        }))
+        self.present(alert, animated: true, completion: nil)
     }
 }
 

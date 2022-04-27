@@ -61,5 +61,25 @@ struct SkipTaskJSON: Codable {
 }
 
 struct InivteCodeJSON: Codable {
-    let pin_code: String
+    let pin_code: String?
+    let qr_code: String?
+}
+
+struct NotificationsJSON: Codable {
+    let unread: [MessageJSON]
+    let all: [MessageJSON]
+}
+
+struct MessageJSON: Codable {
+    let message: String
+    let timestamp: String
+}
+
+struct SettingsJSON: Codable {
+    let name: String
+    let n1: Bool
+    let n2: Bool
+    let n3: Bool
+    let n4: Bool
+    let n5: Bool
 }

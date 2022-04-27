@@ -92,10 +92,13 @@ class QueueCreation: UITableViewController {
     
     
     @IBAction func createQueue(_ sender: UIButton) {
+
         let name = queueName.text!
-        let track = trackExpenses.isOn
-        let newQueue = QueueCreateJSON(name: name, color: color, track_expenses: track)
-        QueueShortRequest.createQueue(queue: newQueue)
+        if (!name.isEmpty) {
+            let track = trackExpenses.isOn
+            let newQueue = QueueCreateJSON(name: name, color: color, track_expenses: track)
+            QueueShortRequest.createQueue(queue: newQueue)
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
